@@ -26,29 +26,72 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.util.List;
-import java.util.Map;
 
+/**
+ * A file represented as an Attachment object.
+ *
+ * @since 0.2.3
+ */
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @JsonPropertyOrder({
         "id",
+        "file_name",
+        "content_url",
+        "content_type",
+        "size",
+        "thumbnails",
+        "inline",
+        "deleted",
         "url",
-        "total",
-        "progress",
-        "status",
-        "message",
-        "job_type",
-        "results"
+        "width",
+        "height",
+        "malware_scan_result"
 })
 @Serdeable
-public class JobStatus {
+public class AttachmentObject {
 
     @Nullable
     @JsonProperty("id")
     @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private String id;
+    private Long id;
+
+    @Nullable
+    @JsonProperty("file_name")
+    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
+    private String fileName;
+
+    @Nullable
+    @JsonProperty("content_url")
+    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
+    private String contentUrl;
+
+    @Nullable
+    @JsonProperty("content_type")
+    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
+    private String contentType;
+
+    @Nullable
+    @JsonProperty("size")
+    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
+    private Long size;
+
+    @Nullable
+    @JsonProperty("thumbnails")
+    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
+    private List<AttachmentObject> thumbnails;
+
+    @Nullable
+    @JsonProperty("inline")
+    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
+    private Boolean inline;
+
+    @Nullable
+    @JsonProperty("deleted")
+    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
+    private Boolean deleted;
 
     @Nullable
     @JsonProperty("url")
@@ -56,32 +99,17 @@ public class JobStatus {
     private String url;
 
     @Nullable
-    @JsonProperty("total")
+    @JsonProperty("width")
     @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private Integer total;
+    private Long width;
 
     @Nullable
-    @JsonProperty("progress")
+    @JsonProperty("height")
     @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private Integer progress;
+    private Long height;
 
     @Nullable
-    @JsonProperty("status")
+    @JsonProperty("malware_scan_result")
     @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private String status;
-
-    @Nullable
-    @JsonProperty("message")
-    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private String message;
-
-    @Nullable
-    @JsonProperty("job_type")
-    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private String jobType;
-
-    @Nullable
-    @JsonProperty("results")
-    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private List<Map<String, Object>> results;
+    private String malwareScanResult;
 }

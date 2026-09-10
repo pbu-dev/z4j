@@ -13,20 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package lol.pbu.z4j.model;
+package lol.pbu.z4j.ratelimit;
 
-import io.micronaut.serde.annotation.Serdeable;
-import lombok.*;
-import lombok.experimental.Accessors;
+/**
+ * Listener interface for observing Zendesk rate limit updates.
+ * Implementations can be registered as Micronaut beans or added directly to {@link RateLimitTracker}.
+ *
+ * @author Jonathan-Zollinger
+ * @since 0.2.3
+ */
+@FunctionalInterface
+public interface RateLimitListener {
 
-@Accessors(chain = true)
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode
-@Setter
-@Getter
-@Serdeable
-public class CreateResourceResult {
-    private Integer id;
-    private Integer index;
+    /**
+     * Invoked whenever a Zendesk HTTP response is intercepted and rate limit information is updated.
+     *
+     * @param snapshot The updated rate limit snapshot
+     */
+    void onRateLimitUpdate(RateLimitSnapshot snapshot);
 }

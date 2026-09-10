@@ -43,6 +43,9 @@ import java.util.List;
         SearchResponse.JSON_PROPERTY_NEXT_PAGE,
         SearchResponse.JSON_PROPERTY_PREVIOUS_PAGE,
         SearchResponse.JSON_PROPERTY_RESULTS,
+        SearchResponse.JSON_PROPERTY_USERS,
+        SearchResponse.JSON_PROPERTY_ORGANIZATIONS,
+        SearchResponse.JSON_PROPERTY_GROUPS,
 })
 @Serdeable
 public class SearchResponse {
@@ -52,6 +55,9 @@ public class SearchResponse {
     public static final String JSON_PROPERTY_NEXT_PAGE = "next_page";
     public static final String JSON_PROPERTY_PREVIOUS_PAGE = "previous_page";
     public static final String JSON_PROPERTY_RESULTS = "results";
+    public static final String JSON_PROPERTY_USERS = "users";
+    public static final String JSON_PROPERTY_ORGANIZATIONS = "organizations";
+    public static final String JSON_PROPERTY_GROUPS = "groups";
 
     /**
      * The number of resources returned by the query corresponding to this page of results in the paginated response
@@ -92,5 +98,29 @@ public class SearchResponse {
     @JsonProperty(JSON_PROPERTY_RESULTS)
     @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
     private List<@Valid SearchResult> results;
+
+    /**
+     * Sideloaded users associated with search results (when include=users is requested)
+     */
+    @Nullable
+    @JsonProperty(JSON_PROPERTY_USERS)
+    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
+    private List<@Valid User> users;
+
+    /**
+     * Sideloaded organizations associated with search results (when include=organizations is requested)
+     */
+    @Nullable
+    @JsonProperty(JSON_PROPERTY_ORGANIZATIONS)
+    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
+    private List<@Valid Organization> organizations;
+
+    /**
+     * Sideloaded groups associated with search results (when include=groups is requested)
+     */
+    @Nullable
+    @JsonProperty(JSON_PROPERTY_GROUPS)
+    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
+    private List<@Valid Group> groups;
 
 }

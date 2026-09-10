@@ -24,9 +24,9 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode
 @Serdeable
-public class UpdateResourceResult extends JobStatus {
+public class UpdateResourceResult {
     /**
      * the action the job attempted ({@code "action": "update"})
      */

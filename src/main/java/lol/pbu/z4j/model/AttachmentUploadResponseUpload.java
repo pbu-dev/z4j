@@ -25,63 +25,46 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+/**
+ * Upload details including token and attachment objects.
+ *
+ * @since 0.2.3
+ */
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @JsonPropertyOrder({
-        "id",
-        "url",
-        "total",
-        "progress",
-        "status",
-        "message",
-        "job_type",
-        "results"
+        "token",
+        "attachment",
+        "attachments"
 })
 @Serdeable
-public class JobStatus {
+public class AttachmentUploadResponseUpload {
 
     @Nullable
-    @JsonProperty("id")
+    @JsonProperty("token")
     @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private String id;
+    private String token;
 
     @Nullable
-    @JsonProperty("url")
+    @JsonProperty("attachment")
     @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private String url;
+    private AttachmentObject attachment;
 
     @Nullable
-    @JsonProperty("total")
+    @JsonProperty("attachments")
     @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private Integer total;
+    private List<AttachmentObject> attachments;
 
-    @Nullable
-    @JsonProperty("progress")
-    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private Integer progress;
-
-    @Nullable
-    @JsonProperty("status")
-    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private String status;
-
-    @Nullable
-    @JsonProperty("message")
-    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private String message;
-
-    @Nullable
-    @JsonProperty("job_type")
-    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private String jobType;
-
-    @Nullable
-    @JsonProperty("results")
-    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private List<Map<String, Object>> results;
+    public AttachmentUploadResponseUpload addAttachmentsItem(AttachmentObject attachmentsItem) {
+        if (attachments == null) {
+            attachments = new ArrayList<>();
+        }
+        attachments.add(attachmentsItem);
+        return this;
+    }
 }

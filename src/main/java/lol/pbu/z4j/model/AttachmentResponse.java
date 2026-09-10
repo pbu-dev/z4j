@@ -25,63 +25,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import java.util.List;
-import java.util.Map;
-
+/**
+ * AttachmentResponse
+ *
+ * @since 0.2.3
+ */
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@JsonPropertyOrder({
-        "id",
-        "url",
-        "total",
-        "progress",
-        "status",
-        "message",
-        "job_type",
-        "results"
-})
+@JsonPropertyOrder("attachment")
 @Serdeable
-public class JobStatus {
+public class AttachmentResponse {
 
     @Nullable
-    @JsonProperty("id")
+    @JsonProperty("attachment")
     @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private String id;
-
-    @Nullable
-    @JsonProperty("url")
-    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private String url;
-
-    @Nullable
-    @JsonProperty("total")
-    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private Integer total;
-
-    @Nullable
-    @JsonProperty("progress")
-    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private Integer progress;
-
-    @Nullable
-    @JsonProperty("status")
-    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private String status;
-
-    @Nullable
-    @JsonProperty("message")
-    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private String message;
-
-    @Nullable
-    @JsonProperty("job_type")
-    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private String jobType;
-
-    @Nullable
-    @JsonProperty("results")
-    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
-    private List<Map<String, Object>> results;
+    private AttachmentObject attachment;
 }

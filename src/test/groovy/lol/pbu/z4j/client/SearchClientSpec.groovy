@@ -71,6 +71,18 @@ class SearchClientSpec extends Z4jSpec {
         noExceptionThrown()
     }
 
+    void "can run search with sideloading for users, organizations, and groups"() {
+        when: "searching tickets with sideloading"
+        SearchResponse response = adminSearchClient.list("type:ticket", "tickets(users,organizations,groups)", null, null, 1, 5).block()
+
+        then:
+        noExceptionThrown()
+        response != null
+        response.results != null
+        response.users != null
+        !response.users.isEmpty()
+    }
+
     @Unroll("a simple user querying the list method fails with #sortBy and #sortOrder")
     void "cannot run searchClient.list()"(SearchClient client, SortBy sortBy, SortOrder sortOrder) {
         when:

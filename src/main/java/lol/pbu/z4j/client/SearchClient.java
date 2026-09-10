@@ -108,6 +108,7 @@ public interface SearchClient {
      * Allowed For Agents</h4>
      *
      * @param query     Returns the search results. See <a href='https://developer.zendesk.com/api-reference/ticketing/ticket-management/search/#query-syntax'>Query syntax</a> for details on the {@code query} parameter. For details on the query syntax, see the <a href='https://support.zendesk.com/hc/en-us/articles/203663226'>Zendesk Support search reference</a>. (required)
+     * @param include   Sideload related resources (e.g. {@code "users,organizations,groups"} or {@code "tickets(users,organizations)"}) (optional)
      * @param sortBy    One of {@code updated_at}, {@code created_at}, {@code priority}, {@code status}, or {@code ticket_type}. Defaults to sorting by relevance (optional)
      * @param sortOrder Defaults to descending (optional)
      * @param page      The page number to retrieve. (optional)
@@ -118,9 +119,23 @@ public interface SearchClient {
     @Get("/api/v2/search")
     Mono<@Valid SearchResponse> list(
             @QueryValue("query") @NotNull String query,
+            @QueryValue("include") @Nullable String include,
             @QueryValue("sort_by") @Nullable SortBy sortBy,
             @QueryValue("sort_order") @Nullable SortOrder sortOrder,
             @QueryValue("page") @Nullable Integer page,
             @QueryValue("per_page") @Nullable @Max(100) Integer perPage
     );
+
+    /**
+     * Overload for {@link #list(String, String, SortBy, SortOrder, Integer, Integer)} without sideloading.
+     */
+    default Mono<@Valid SearchResponse> list(
+            String query,
+            SortBy sortBy,
+            SortOrder sortOrder,
+            Integer page,
+            Integer perPage
+    ) {
+        return list(query, null, sortBy, sortOrder, page, perPage);
+    }
 }
